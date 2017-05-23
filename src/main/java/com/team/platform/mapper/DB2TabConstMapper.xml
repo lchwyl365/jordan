@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.platform.mapper.DB2TabConstMapper">
+  <resultMap id="BaseResultMap" type="com.team.platform.pojo.DB2TabConst">
+    <result column="CONSTNAME" jdbcType="VARCHAR" property="constname" />
+    <result column="TABSCHEMA" jdbcType="VARCHAR" property="tabschema" />
+    <result column="TABNAME" jdbcType="VARCHAR" property="tabname" />
+    <result column="OWNER" jdbcType="VARCHAR" property="owner" />
+    <result column="OWNERTYPE" jdbcType="CHAR" property="ownertype" />
+    <result column="TYPE" jdbcType="CHAR" property="type" />
+    <result column="ENFORCED" jdbcType="CHAR" property="enforced" />
+    <result column="TRUSTED" jdbcType="CHAR" property="trusted" />
+    <result column="CHECKEXISTINGDATA" jdbcType="CHAR" property="checkexistingdata" />
+    <result column="ENABLEQUERYOPT" jdbcType="CHAR" property="enablequeryopt" />
+    <result column="DEFINER" jdbcType="VARCHAR" property="definer" />
+    <result column="PERIODNAME" jdbcType="VARCHAR" property="periodname" />
+    <result column="PERIODPOLICY" jdbcType="CHAR" property="periodpolicy" />
+    <result column="REMARKS" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    CONSTNAME, TABSCHEMA, TABNAME, OWNER, OWNERTYPE, TYPE, ENFORCED, TRUSTED, CHECKEXISTINGDATA, 
+    ENABLEQUERYOPT, DEFINER, PERIODNAME, PERIODPOLICY, REMARKS
+  </sql>
+  <select id="selectByExample" parameterType="com.team.platform.pojo.DB2TabConstExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from SYSCAT.TABCONST
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.team.platform.pojo.DB2TabConstExample">
+    delete from SYSCAT.TABCONST
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.team.platform.pojo.DB2TabConst">
+    insert into SYSCAT.TABCONST (CONSTNAME, TABSCHEMA, TABNAME, 
+      OWNER, OWNERTYPE, TYPE, ENFORCED, 
+      TRUSTED, CHECKEXISTINGDATA, ENABLEQUERYOPT, 
+      DEFINER, PERIODNAME, PERIODPOLICY, 
+      REMARKS)
+    values (#{constname,jdbcType=VARCHAR}, #{tabschema,jdbcType=VARCHAR}, #{tabname,jdbcType=VARCHAR}, 
+      #{owner,jdbcType=VARCHAR}, #{ownertype,jdbcType=CHAR}, #{type,jdbcType=CHAR}, #{enforced,jdbcType=CHAR}, 
+      #{trusted,jdbcType=CHAR}, #{checkexistingdata,jdbcType=CHAR}, #{enablequeryopt,jdbcType=CHAR}, 
+      #{definer,jdbcType=VARCHAR}, #{periodname,jdbcType=VARCHAR}, #{periodpolicy,jdbcType=CHAR}, 
+      #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.team.platform.pojo.DB2TabConst">
+    insert into SYSCAT.TABCONST
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="constname != null">
+        CONSTNAME,
+      </if>
+      <if test="tabschema != null">
+        TABSCHEMA,
+      </if>
+      <if test="tabname != null">
+        TABNAME,
+      </if>
+      <if test="owner != null">
+        OWNER,
+      </if>
+      <if test="ownertype != null">
+        OWNERTYPE,
+      </if>
+      <if test="type != null">
+        TYPE,
+      </if>
+      <if test="enforced != null">
+        ENFORCED,
+      </if>
+      <if test="trusted != null">
+        TRUSTED,
+      </if>
+      <if test="checkexistingdata != null">
+        CHECKEXISTINGDATA,
+      </if>
+      <if test="enablequeryopt != null">
+        ENABLEQUERYOPT,
+      </if>
+      <if test="definer != null">
+        DEFINER,
+      </if>
+      <if test="periodname != null">
+        PERIODNAME,
+      </if>
+      <if test="periodpolicy != null">
+        PERIODPOLICY,
+      </if>
+      <if test="remarks != null">
+        REMARKS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="constname != null">
+        #{constname,jdbcType=VARCHAR},
+      </if>
+      <if test="tabschema != null">
+        #{tabschema,jdbcType=VARCHAR},
+      </if>
+      <if test="tabname != null">
+        #{tabname,jdbcType=VARCHAR},
+      </if>
+      <if test="owner != null">
+        #{owner,jdbcType=VARCHAR},
+      </if>
+      <if test="ownertype != null">
+        #{ownertype,jdbcType=CHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="enforced != null">
+        #{enforced,jdbcType=CHAR},
+      </if>
+      <if test="trusted != null">
+        #{trusted,jdbcType=CHAR},
+      </if>
+      <if test="checkexistingdata != null">
+        #{checkexistingdata,jdbcType=CHAR},
+      </if>
+      <if test="enablequeryopt != null">
+        #{enablequeryopt,jdbcType=CHAR},
+      </if>
+      <if test="definer != null">
+        #{definer,jdbcType=VARCHAR},
+      </if>
+      <if test="periodname != null">
+        #{periodname,jdbcType=VARCHAR},
+      </if>
+      <if test="periodpolicy != null">
+        #{periodpolicy,jdbcType=CHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.team.platform.pojo.DB2TabConstExample" resultType="java.lang.Long">
+    select count(*) from SYSCAT.TABCONST
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update SYSCAT.TABCONST
+    <set>
+      <if test="record.constname != null">
+        CONSTNAME = #{record.constname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tabschema != null">
+        TABSCHEMA = #{record.tabschema,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tabname != null">
+        TABNAME = #{record.tabname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.owner != null">
+        OWNER = #{record.owner,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ownertype != null">
+        OWNERTYPE = #{record.ownertype,jdbcType=CHAR},
+      </if>
+      <if test="record.type != null">
+        TYPE = #{record.type,jdbcType=CHAR},
+      </if>
+      <if test="record.enforced != null">
+        ENFORCED = #{record.enforced,jdbcType=CHAR},
+      </if>
+      <if test="record.trusted != null">
+        TRUSTED = #{record.trusted,jdbcType=CHAR},
+      </if>
+      <if test="record.checkexistingdata != null">
+        CHECKEXISTINGDATA = #{record.checkexistingdata,jdbcType=CHAR},
+      </if>
+      <if test="record.enablequeryopt != null">
+        ENABLEQUERYOPT = #{record.enablequeryopt,jdbcType=CHAR},
+      </if>
+      <if test="record.definer != null">
+        DEFINER = #{record.definer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.periodname != null">
+        PERIODNAME = #{record.periodname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.periodpolicy != null">
+        PERIODPOLICY = #{record.periodpolicy,jdbcType=CHAR},
+      </if>
+      <if test="record.remarks != null">
+        REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update SYSCAT.TABCONST
+    set CONSTNAME = #{record.constname,jdbcType=VARCHAR},
+      TABSCHEMA = #{record.tabschema,jdbcType=VARCHAR},
+      TABNAME = #{record.tabname,jdbcType=VARCHAR},
+      OWNER = #{record.owner,jdbcType=VARCHAR},
+      OWNERTYPE = #{record.ownertype,jdbcType=CHAR},
+      TYPE = #{record.type,jdbcType=CHAR},
+      ENFORCED = #{record.enforced,jdbcType=CHAR},
+      TRUSTED = #{record.trusted,jdbcType=CHAR},
+      CHECKEXISTINGDATA = #{record.checkexistingdata,jdbcType=CHAR},
+      ENABLEQUERYOPT = #{record.enablequeryopt,jdbcType=CHAR},
+      DEFINER = #{record.definer,jdbcType=VARCHAR},
+      PERIODNAME = #{record.periodname,jdbcType=VARCHAR},
+      PERIODPOLICY = #{record.periodpolicy,jdbcType=CHAR},
+      REMARKS = #{record.remarks,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

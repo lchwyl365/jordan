@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.platform.mapper.SysColumnsMapper">
+  <resultMap id="BaseResultMap" type="com.team.platform.pojo.SysColumns">
+    <id column="COLUMN_NAME" jdbcType="VARCHAR" property="columnName" />
+    <id column="TBNAME" jdbcType="VARCHAR" property="tbname" />
+    <id column="TBCREATOR" jdbcType="VARCHAR" property="tbcreator" />
+    <result column="COLNO" jdbcType="SMALLINT" property="colno" />
+    <result column="REMARKS" jdbcType="VARCHAR" property="remarks" />
+    <result column="COLTYPE" jdbcType="VARCHAR" property="coltype" />
+    <result column="PROPERTY_LENGTH" jdbcType="SMALLINT" property="propertyLength" />
+    <result column="NULLS" jdbcType="CHAR" property="nulls" />
+    <result column="PROPERTY_NAME" jdbcType="VARCHAR" property="propertyName" />
+    <result column="PROPERTY_TYPE" jdbcType="VARCHAR" property="propertyType" />
+    <result column="PROPERTY_TITLE" jdbcType="VARCHAR" property="propertyTitle" />
+    <result column="ISPRIMARY" jdbcType="CHAR" property="isprimary" />
+    <result column="ISSELECT" jdbcType="CHAR" property="isselect" />
+    <result column="ISLIKE" jdbcType="CHAR" property="islike" />
+    <result column="ISDISPLAY" jdbcType="CHAR" property="isdisplay" />
+    <result column="ISADD" jdbcType="CHAR" property="isadd" />
+    <result column="ISUPDATE" jdbcType="CHAR" property="isupdate" />
+    <result column="WIDTH" jdbcType="SMALLINT" property="width" />
+    <result column="SORTABLE" jdbcType="CHAR" property="sortable" />
+    <result column="COMPONENT" jdbcType="VARCHAR" property="component" />
+    <result column="DATA_OPTIONS" jdbcType="VARCHAR" property="dataOptions" />
+    <result column="FORMATTER" jdbcType="VARCHAR" property="formatter" />
+    <result column="COMBOID" jdbcType="VARCHAR" property="comboid" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    COLUMN_NAME, TBNAME, TBCREATOR, COLNO, REMARKS, COLTYPE, PROPERTY_LENGTH, NULLS, 
+    PROPERTY_NAME, PROPERTY_TYPE, PROPERTY_TITLE, ISPRIMARY, ISSELECT, ISLIKE, ISDISPLAY, 
+    ISADD, ISUPDATE, WIDTH, SORTABLE, COMPONENT, DATA_OPTIONS, FORMATTER, COMBOID
+  </sql>
+  <select id="selectByExample" parameterType="com.team.platform.pojo.SysColumnsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HDMS.SYS_COLUMNS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.team.platform.pojo.SysColumnsKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from HDMS.SYS_COLUMNS
+    where COLUMN_NAME = #{columnName,jdbcType=VARCHAR}
+      and TBNAME = #{tbname,jdbcType=VARCHAR}
+      and TBCREATOR = #{tbcreator,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.team.platform.pojo.SysColumnsKey">
+    delete from HDMS.SYS_COLUMNS
+    where COLUMN_NAME = #{columnName,jdbcType=VARCHAR}
+      and TBNAME = #{tbname,jdbcType=VARCHAR}
+      and TBCREATOR = #{tbcreator,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.team.platform.pojo.SysColumnsExample">
+    delete from HDMS.SYS_COLUMNS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.team.platform.pojo.SysColumns">
+    insert into HDMS.SYS_COLUMNS (COLUMN_NAME, TBNAME, TBCREATOR, 
+      COLNO, REMARKS, COLTYPE, 
+      PROPERTY_LENGTH, NULLS, PROPERTY_NAME, 
+      PROPERTY_TYPE, PROPERTY_TITLE, ISPRIMARY, 
+      ISSELECT, ISLIKE, ISDISPLAY, 
+      ISADD, ISUPDATE, WIDTH, 
+      SORTABLE, COMPONENT, DATA_OPTIONS, 
+      FORMATTER, COMBOID)
+    values (#{columnName,jdbcType=VARCHAR}, #{tbname,jdbcType=VARCHAR}, #{tbcreator,jdbcType=VARCHAR}, 
+      #{colno,jdbcType=SMALLINT}, #{remarks,jdbcType=VARCHAR}, #{coltype,jdbcType=VARCHAR}, 
+      #{propertyLength,jdbcType=SMALLINT}, #{nulls,jdbcType=CHAR}, #{propertyName,jdbcType=VARCHAR}, 
+      #{propertyType,jdbcType=VARCHAR}, #{propertyTitle,jdbcType=VARCHAR}, #{isprimary,jdbcType=CHAR}, 
+      #{isselect,jdbcType=CHAR}, #{islike,jdbcType=CHAR}, #{isdisplay,jdbcType=CHAR}, 
+      #{isadd,jdbcType=CHAR}, #{isupdate,jdbcType=CHAR}, #{width,jdbcType=SMALLINT}, 
+      #{sortable,jdbcType=CHAR}, #{component,jdbcType=VARCHAR}, #{dataOptions,jdbcType=VARCHAR}, 
+      #{formatter,jdbcType=VARCHAR}, #{comboid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.team.platform.pojo.SysColumns">
+    insert into HDMS.SYS_COLUMNS
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="columnName != null">
+        COLUMN_NAME,
+      </if>
+      <if test="tbname != null">
+        TBNAME,
+      </if>
+      <if test="tbcreator != null">
+        TBCREATOR,
+      </if>
+      <if test="colno != null">
+        COLNO,
+      </if>
+      <if test="remarks != null">
+        REMARKS,
+      </if>
+      <if test="coltype != null">
+        COLTYPE,
+      </if>
+      <if test="propertyLength != null">
+        PROPERTY_LENGTH,
+      </if>
+      <if test="nulls != null">
+        NULLS,
+      </if>
+      <if test="propertyName != null">
+        PROPERTY_NAME,
+      </if>
+      <if test="propertyType != null">
+        PROPERTY_TYPE,
+      </if>
+      <if test="propertyTitle != null">
+        PROPERTY_TITLE,
+      </if>
+      <if test="isprimary != null">
+        ISPRIMARY,
+      </if>
+      <if test="isselect != null">
+        ISSELECT,
+      </if>
+      <if test="islike != null">
+        ISLIKE,
+      </if>
+      <if test="isdisplay != null">
+        ISDISPLAY,
+      </if>
+      <if test="isadd != null">
+        ISADD,
+      </if>
+      <if test="isupdate != null">
+        ISUPDATE,
+      </if>
+      <if test="width != null">
+        WIDTH,
+      </if>
+      <if test="sortable != null">
+        SORTABLE,
+      </if>
+      <if test="component != null">
+        COMPONENT,
+      </if>
+      <if test="dataOptions != null">
+        DATA_OPTIONS,
+      </if>
+      <if test="formatter != null">
+        FORMATTER,
+      </if>
+      <if test="comboid != null">
+        COMBOID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="columnName != null">
+        #{columnName,jdbcType=VARCHAR},
+      </if>
+      <if test="tbname != null">
+        #{tbname,jdbcType=VARCHAR},
+      </if>
+      <if test="tbcreator != null">
+        #{tbcreator,jdbcType=VARCHAR},
+      </if>
+      <if test="colno != null">
+        #{colno,jdbcType=SMALLINT},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="coltype != null">
+        #{coltype,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyLength != null">
+        #{propertyLength,jdbcType=SMALLINT},
+      </if>
+      <if test="nulls != null">
+        #{nulls,jdbcType=CHAR},
+      </if>
+      <if test="propertyName != null">
+        #{propertyName,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyType != null">
+        #{propertyType,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyTitle != null">
+        #{propertyTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="isprimary != null">
+        #{isprimary,jdbcType=CHAR},
+      </if>
+      <if test="isselect != null">
+        #{isselect,jdbcType=CHAR},
+      </if>
+      <if test="islike != null">
+        #{islike,jdbcType=CHAR},
+      </if>
+      <if test="isdisplay != null">
+        #{isdisplay,jdbcType=CHAR},
+      </if>
+      <if test="isadd != null">
+        #{isadd,jdbcType=CHAR},
+      </if>
+      <if test="isupdate != null">
+        #{isupdate,jdbcType=CHAR},
+      </if>
+      <if test="width != null">
+        #{width,jdbcType=SMALLINT},
+      </if>
+      <if test="sortable != null">
+        #{sortable,jdbcType=CHAR},
+      </if>
+      <if test="component != null">
+        #{component,jdbcType=VARCHAR},
+      </if>
+      <if test="dataOptions != null">
+        #{dataOptions,jdbcType=VARCHAR},
+      </if>
+      <if test="formatter != null">
+        #{formatter,jdbcType=VARCHAR},
+      </if>
+      <if test="comboid != null">
+        #{comboid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.team.platform.pojo.SysColumnsExample" resultType="java.lang.Long">
+    select count(*) from HDMS.SYS_COLUMNS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update HDMS.SYS_COLUMNS
+    <set>
+      <if test="record.columnName != null">
+        COLUMN_NAME = #{record.columnName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tbname != null">
+        TBNAME = #{record.tbname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tbcreator != null">
+        TBCREATOR = #{record.tbcreator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.colno != null">
+        COLNO = #{record.colno,jdbcType=SMALLINT},
+      </if>
+      <if test="record.remarks != null">
+        REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coltype != null">
+        COLTYPE = #{record.coltype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.propertyLength != null">
+        PROPERTY_LENGTH = #{record.propertyLength,jdbcType=SMALLINT},
+      </if>
+      <if test="record.nulls != null">
+        NULLS = #{record.nulls,jdbcType=CHAR},
+      </if>
+      <if test="record.propertyName != null">
+        PROPERTY_NAME = #{record.propertyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.propertyType != null">
+        PROPERTY_TYPE = #{record.propertyType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.propertyTitle != null">
+        PROPERTY_TITLE = #{record.propertyTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isprimary != null">
+        ISPRIMARY = #{record.isprimary,jdbcType=CHAR},
+      </if>
+      <if test="record.isselect != null">
+        ISSELECT = #{record.isselect,jdbcType=CHAR},
+      </if>
+      <if test="record.islike != null">
+        ISLIKE = #{record.islike,jdbcType=CHAR},
+      </if>
+      <if test="record.isdisplay != null">
+        ISDISPLAY = #{record.isdisplay,jdbcType=CHAR},
+      </if>
+      <if test="record.isadd != null">
+        ISADD = #{record.isadd,jdbcType=CHAR},
+      </if>
+      <if test="record.isupdate != null">
+        ISUPDATE = #{record.isupdate,jdbcType=CHAR},
+      </if>
+      <if test="record.width != null">
+        WIDTH = #{record.width,jdbcType=SMALLINT},
+      </if>
+      <if test="record.sortable != null">
+        SORTABLE = #{record.sortable,jdbcType=CHAR},
+      </if>
+      <if test="record.component != null">
+        COMPONENT = #{record.component,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dataOptions != null">
+        DATA_OPTIONS = #{record.dataOptions,jdbcType=VARCHAR},
+      </if>
+      <if test="record.formatter != null">
+        FORMATTER = #{record.formatter,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comboid != null">
+        COMBOID = #{record.comboid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update HDMS.SYS_COLUMNS
+    set COLUMN_NAME = #{record.columnName,jdbcType=VARCHAR},
+      TBNAME = #{record.tbname,jdbcType=VARCHAR},
+      TBCREATOR = #{record.tbcreator,jdbcType=VARCHAR},
+      COLNO = #{record.colno,jdbcType=SMALLINT},
+      REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      COLTYPE = #{record.coltype,jdbcType=VARCHAR},
+      PROPERTY_LENGTH = #{record.propertyLength,jdbcType=SMALLINT},
+      NULLS = #{record.nulls,jdbcType=CHAR},
+      PROPERTY_NAME = #{record.propertyName,jdbcType=VARCHAR},
+      PROPERTY_TYPE = #{record.propertyType,jdbcType=VARCHAR},
+      PROPERTY_TITLE = #{record.propertyTitle,jdbcType=VARCHAR},
+      ISPRIMARY = #{record.isprimary,jdbcType=CHAR},
+      ISSELECT = #{record.isselect,jdbcType=CHAR},
+      ISLIKE = #{record.islike,jdbcType=CHAR},
+      ISDISPLAY = #{record.isdisplay,jdbcType=CHAR},
+      ISADD = #{record.isadd,jdbcType=CHAR},
+      ISUPDATE = #{record.isupdate,jdbcType=CHAR},
+      WIDTH = #{record.width,jdbcType=SMALLINT},
+      SORTABLE = #{record.sortable,jdbcType=CHAR},
+      COMPONENT = #{record.component,jdbcType=VARCHAR},
+      DATA_OPTIONS = #{record.dataOptions,jdbcType=VARCHAR},
+      FORMATTER = #{record.formatter,jdbcType=VARCHAR},
+      COMBOID = #{record.comboid,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.team.platform.pojo.SysColumns">
+    update HDMS.SYS_COLUMNS
+    <set>
+      <if test="colno != null">
+        COLNO = #{colno,jdbcType=SMALLINT},
+      </if>
+      <if test="remarks != null">
+        REMARKS = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="coltype != null">
+        COLTYPE = #{coltype,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyLength != null">
+        PROPERTY_LENGTH = #{propertyLength,jdbcType=SMALLINT},
+      </if>
+      <if test="nulls != null">
+        NULLS = #{nulls,jdbcType=CHAR},
+      </if>
+      <if test="propertyName != null">
+        PROPERTY_NAME = #{propertyName,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyType != null">
+        PROPERTY_TYPE = #{propertyType,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyTitle != null">
+        PROPERTY_TITLE = #{propertyTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="isprimary != null">
+        ISPRIMARY = #{isprimary,jdbcType=CHAR},
+      </if>
+      <if test="isselect != null">
+        ISSELECT = #{isselect,jdbcType=CHAR},
+      </if>
+      <if test="islike != null">
+        ISLIKE = #{islike,jdbcType=CHAR},
+      </if>
+      <if test="isdisplay != null">
+        ISDISPLAY = #{isdisplay,jdbcType=CHAR},
+      </if>
+      <if test="isadd != null">
+        ISADD = #{isadd,jdbcType=CHAR},
+      </if>
+      <if test="isupdate != null">
+        ISUPDATE = #{isupdate,jdbcType=CHAR},
+      </if>
+      <if test="width != null">
+        WIDTH = #{width,jdbcType=SMALLINT},
+      </if>
+      <if test="sortable != null">
+        SORTABLE = #{sortable,jdbcType=CHAR},
+      </if>
+      <if test="component != null">
+        COMPONENT = #{component,jdbcType=VARCHAR},
+      </if>
+      <if test="dataOptions != null">
+        DATA_OPTIONS = #{dataOptions,jdbcType=VARCHAR},
+      </if>
+      <if test="formatter != null">
+        FORMATTER = #{formatter,jdbcType=VARCHAR},
+      </if>
+      <if test="comboid != null">
+        COMBOID = #{comboid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where COLUMN_NAME = #{columnName,jdbcType=VARCHAR}
+      and TBNAME = #{tbname,jdbcType=VARCHAR}
+      and TBCREATOR = #{tbcreator,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.team.platform.pojo.SysColumns">
+    update HDMS.SYS_COLUMNS
+    set COLNO = #{colno,jdbcType=SMALLINT},
+      REMARKS = #{remarks,jdbcType=VARCHAR},
+      COLTYPE = #{coltype,jdbcType=VARCHAR},
+      PROPERTY_LENGTH = #{propertyLength,jdbcType=SMALLINT},
+      NULLS = #{nulls,jdbcType=CHAR},
+      PROPERTY_NAME = #{propertyName,jdbcType=VARCHAR},
+      PROPERTY_TYPE = #{propertyType,jdbcType=VARCHAR},
+      PROPERTY_TITLE = #{propertyTitle,jdbcType=VARCHAR},
+      ISPRIMARY = #{isprimary,jdbcType=CHAR},
+      ISSELECT = #{isselect,jdbcType=CHAR},
+      ISLIKE = #{islike,jdbcType=CHAR},
+      ISDISPLAY = #{isdisplay,jdbcType=CHAR},
+      ISADD = #{isadd,jdbcType=CHAR},
+      ISUPDATE = #{isupdate,jdbcType=CHAR},
+      WIDTH = #{width,jdbcType=SMALLINT},
+      SORTABLE = #{sortable,jdbcType=CHAR},
+      COMPONENT = #{component,jdbcType=VARCHAR},
+      DATA_OPTIONS = #{dataOptions,jdbcType=VARCHAR},
+      FORMATTER = #{formatter,jdbcType=VARCHAR},
+      COMBOID = #{comboid,jdbcType=VARCHAR}
+    where COLUMN_NAME = #{columnName,jdbcType=VARCHAR}
+      and TBNAME = #{tbname,jdbcType=VARCHAR}
+      and TBCREATOR = #{tbcreator,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.platform.mapper.AuthTestMapper">
+  <resultMap id="BaseResultMap" type="com.team.platform.pojo.AuthTest">
+    <id column="TESTID" jdbcType="VARCHAR" property="testid" />
+    <id column="GROUP_ID" jdbcType="VARCHAR" property="groupId" />
+    <result column="TESTNAME" jdbcType="VARCHAR" property="testname" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TESTID, GROUP_ID, TESTNAME
+  </sql>
+  <select id="selectByExample" parameterType="com.team.platform.pojo.AuthTestExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HDMS.AUTH_TEST
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.team.platform.pojo.AuthTestKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from HDMS.AUTH_TEST
+    where TESTID = #{testid,jdbcType=VARCHAR}
+      and GROUP_ID = #{groupId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.team.platform.pojo.AuthTestKey">
+    delete from HDMS.AUTH_TEST
+    where TESTID = #{testid,jdbcType=VARCHAR}
+      and GROUP_ID = #{groupId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.team.platform.pojo.AuthTestExample">
+    delete from HDMS.AUTH_TEST
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.team.platform.pojo.AuthTest">
+    insert into HDMS.AUTH_TEST (TESTID, GROUP_ID, TESTNAME
+      )
+    values (#{testid,jdbcType=VARCHAR}, #{groupId,jdbcType=VARCHAR}, #{testname,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.team.platform.pojo.AuthTest">
+    insert into HDMS.AUTH_TEST
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="testid != null">
+        TESTID,
+      </if>
+      <if test="groupId != null">
+        GROUP_ID,
+      </if>
+      <if test="testname != null">
+        TESTNAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="testid != null">
+        #{testid,jdbcType=VARCHAR},
+      </if>
+      <if test="groupId != null">
+        #{groupId,jdbcType=VARCHAR},
+      </if>
+      <if test="testname != null">
+        #{testname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.team.platform.pojo.AuthTestExample" resultType="java.lang.Long">
+    select count(*) from HDMS.AUTH_TEST
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update HDMS.AUTH_TEST
+    <set>
+      <if test="record.testid != null">
+        TESTID = #{record.testid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.groupId != null">
+        GROUP_ID = #{record.groupId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.testname != null">
+        TESTNAME = #{record.testname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update HDMS.AUTH_TEST
+    set TESTID = #{record.testid,jdbcType=VARCHAR},
+      GROUP_ID = #{record.groupId,jdbcType=VARCHAR},
+      TESTNAME = #{record.testname,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.team.platform.pojo.AuthTest">
+    update HDMS.AUTH_TEST
+    <set>
+      <if test="testname != null">
+        TESTNAME = #{testname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TESTID = #{testid,jdbcType=VARCHAR}
+      and GROUP_ID = #{groupId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.team.platform.pojo.AuthTest">
+    update HDMS.AUTH_TEST
+    set TESTNAME = #{testname,jdbcType=VARCHAR}
+    where TESTID = #{testid,jdbcType=VARCHAR}
+      and GROUP_ID = #{groupId,jdbcType=VARCHAR}
+  </update>
+</mapper>

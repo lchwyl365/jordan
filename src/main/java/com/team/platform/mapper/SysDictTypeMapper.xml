@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.platform.mapper.SysDictTypeMapper">
+  <resultMap id="BaseResultMap" type="com.team.platform.pojo.SysDictType">
+    <id column="DICTTYPEID" jdbcType="VARCHAR" property="dicttypeid" />
+    <result column="DICTTYPENAME" jdbcType="VARCHAR" property="dicttypename" />
+    <result column="RANK" jdbcType="CHAR" property="rank" />
+    <result column="PARENTID" jdbcType="VARCHAR" property="parentid" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    DICTTYPEID, DICTTYPENAME, RANK, PARENTID
+  </sql>
+  <select id="selectByExample" parameterType="com.team.platform.pojo.SysDictTypeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HDMS.SYS_DICT_TYPE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from HDMS.SYS_DICT_TYPE
+    where DICTTYPEID = #{dicttypeid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from HDMS.SYS_DICT_TYPE
+    where DICTTYPEID = #{dicttypeid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.team.platform.pojo.SysDictTypeExample">
+    delete from HDMS.SYS_DICT_TYPE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.team.platform.pojo.SysDictType">
+    insert into HDMS.SYS_DICT_TYPE (DICTTYPEID, DICTTYPENAME, RANK, 
+      PARENTID)
+    values (#{dicttypeid,jdbcType=VARCHAR}, #{dicttypename,jdbcType=VARCHAR}, #{rank,jdbcType=CHAR}, 
+      #{parentid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.team.platform.pojo.SysDictType">
+    insert into HDMS.SYS_DICT_TYPE
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dicttypeid != null">
+        DICTTYPEID,
+      </if>
+      <if test="dicttypename != null">
+        DICTTYPENAME,
+      </if>
+      <if test="rank != null">
+        RANK,
+      </if>
+      <if test="parentid != null">
+        PARENTID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dicttypeid != null">
+        #{dicttypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="dicttypename != null">
+        #{dicttypename,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null">
+        #{rank,jdbcType=CHAR},
+      </if>
+      <if test="parentid != null">
+        #{parentid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.team.platform.pojo.SysDictTypeExample" resultType="java.lang.Long">
+    select count(*) from HDMS.SYS_DICT_TYPE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update HDMS.SYS_DICT_TYPE
+    <set>
+      <if test="record.dicttypeid != null">
+        DICTTYPEID = #{record.dicttypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dicttypename != null">
+        DICTTYPENAME = #{record.dicttypename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rank != null">
+        RANK = #{record.rank,jdbcType=CHAR},
+      </if>
+      <if test="record.parentid != null">
+        PARENTID = #{record.parentid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update HDMS.SYS_DICT_TYPE
+    set DICTTYPEID = #{record.dicttypeid,jdbcType=VARCHAR},
+      DICTTYPENAME = #{record.dicttypename,jdbcType=VARCHAR},
+      RANK = #{record.rank,jdbcType=CHAR},
+      PARENTID = #{record.parentid,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.team.platform.pojo.SysDictType">
+    update HDMS.SYS_DICT_TYPE
+    <set>
+      <if test="dicttypename != null">
+        DICTTYPENAME = #{dicttypename,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null">
+        RANK = #{rank,jdbcType=CHAR},
+      </if>
+      <if test="parentid != null">
+        PARENTID = #{parentid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where DICTTYPEID = #{dicttypeid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.team.platform.pojo.SysDictType">
+    update HDMS.SYS_DICT_TYPE
+    set DICTTYPENAME = #{dicttypename,jdbcType=VARCHAR},
+      RANK = #{rank,jdbcType=CHAR},
+      PARENTID = #{parentid,jdbcType=VARCHAR}
+    where DICTTYPEID = #{dicttypeid,jdbcType=VARCHAR}
+  </update>
+</mapper>

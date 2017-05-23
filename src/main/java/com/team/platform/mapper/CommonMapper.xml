@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.platform.mapper.CommonMapper">
+  
+  <select id="findManyData" parameterType="String" resultType="com.team.common.pojo.EUTreeNode" >
+    ${value}
+  </select>
+  
+  <select id="selectUserByRole" parameterType="String" resultType="com.team.platform.pojo.AuthUser" >
+    select USERID, USERNAME, OPERATORNAME, PASSWORD, CREATETIME, ALTERTIME, STATUS from AUTH_USER where USERID in
+	( select USER_ID FROM AUTH_USER_ROLE where ROLE_ID = ${roleid})
+  </select>
+  
+  <select id="selectMenuByRole" parameterType="String" resultType="com.team.platform.pojo.AuthMenu" >
+    select MENUID, NAME, MENU_POS, HREF, ICON_CLS as iconCls, DISPLAY, ORDER_NUM, PID, LEVEL_TYPE FROM AUTH_MENU
+	where MENUID in (
+	  select MENU_ID FROM AUTH_ROLE_MENU 
+	  where ROLE_ID in ( select ROLE_ID FROM AUTH_USER_ROLE where USER_ID = '${userid}')
+	  group by MENU_ID having COUNT(1) = 1
+	) and PID = '${pid}' and MENU_POS = '${menuPos}'
+  </select>
+  
+</mapper>

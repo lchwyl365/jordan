@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.platform.mapper.KeyColumnUsageMapper">
+  <resultMap id="BaseResultMap" type="com.team.platform.pojo.KeyColumnUsage">
+    <result column="CONSTRAINT_CATALOG" jdbcType="VARCHAR" property="constraintCatalog" />
+    <result column="CONSTRAINT_SCHEMA" jdbcType="VARCHAR" property="constraintSchema" />
+    <result column="CONSTRAINT_NAME" jdbcType="VARCHAR" property="constraintName" />
+    <result column="TABLE_CATALOG" jdbcType="VARCHAR" property="tableCatalog" />
+    <result column="TABLE_SCHEMA" jdbcType="VARCHAR" property="tableSchema" />
+    <result column="TABLE_NAME" jdbcType="VARCHAR" property="tableName" />
+    <result column="COLUMN_NAME" jdbcType="VARCHAR" property="columnName" />
+    <result column="ORDINAL_POSITION" jdbcType="BIGINT" property="ordinalPosition" />
+    <result column="POSITION_IN_UNIQUE_CONSTRAINT" jdbcType="BIGINT" property="positionInUniqueConstraint" />
+    <result column="REFERENCED_TABLE_SCHEMA" jdbcType="VARCHAR" property="referencedTableSchema" />
+    <result column="REFERENCED_TABLE_NAME" jdbcType="VARCHAR" property="referencedTableName" />
+    <result column="REFERENCED_COLUMN_NAME" jdbcType="VARCHAR" property="referencedColumnName" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    CONSTRAINT_CATALOG, CONSTRAINT_SCHEMA, CONSTRAINT_NAME, TABLE_CATALOG, TABLE_SCHEMA, 
+    TABLE_NAME, COLUMN_NAME, ORDINAL_POSITION, POSITION_IN_UNIQUE_CONSTRAINT, REFERENCED_TABLE_SCHEMA, 
+    REFERENCED_TABLE_NAME, REFERENCED_COLUMN_NAME
+  </sql>
+  <select id="selectByExample" parameterType="com.team.platform.pojo.KeyColumnUsageExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from KEY_COLUMN_USAGE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.team.platform.pojo.KeyColumnUsageExample">
+    delete from KEY_COLUMN_USAGE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.team.platform.pojo.KeyColumnUsage">
+    insert into KEY_COLUMN_USAGE (CONSTRAINT_CATALOG, CONSTRAINT_SCHEMA, 
+      CONSTRAINT_NAME, TABLE_CATALOG, TABLE_SCHEMA, 
+      TABLE_NAME, COLUMN_NAME, ORDINAL_POSITION, 
+      POSITION_IN_UNIQUE_CONSTRAINT, REFERENCED_TABLE_SCHEMA, 
+      REFERENCED_TABLE_NAME, REFERENCED_COLUMN_NAME
+      )
+    values (#{constraintCatalog,jdbcType=VARCHAR}, #{constraintSchema,jdbcType=VARCHAR}, 
+      #{constraintName,jdbcType=VARCHAR}, #{tableCatalog,jdbcType=VARCHAR}, #{tableSchema,jdbcType=VARCHAR}, 
+      #{tableName,jdbcType=VARCHAR}, #{columnName,jdbcType=VARCHAR}, #{ordinalPosition,jdbcType=BIGINT}, 
+      #{positionInUniqueConstraint,jdbcType=BIGINT}, #{referencedTableSchema,jdbcType=VARCHAR}, 
+      #{referencedTableName,jdbcType=VARCHAR}, #{referencedColumnName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.team.platform.pojo.KeyColumnUsage">
+    insert into KEY_COLUMN_USAGE
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="constraintCatalog != null">
+        CONSTRAINT_CATALOG,
+      </if>
+      <if test="constraintSchema != null">
+        CONSTRAINT_SCHEMA,
+      </if>
+      <if test="constraintName != null">
+        CONSTRAINT_NAME,
+      </if>
+      <if test="tableCatalog != null">
+        TABLE_CATALOG,
+      </if>
+      <if test="tableSchema != null">
+        TABLE_SCHEMA,
+      </if>
+      <if test="tableName != null">
+        TABLE_NAME,
+      </if>
+      <if test="columnName != null">
+        COLUMN_NAME,
+      </if>
+      <if test="ordinalPosition != null">
+        ORDINAL_POSITION,
+      </if>
+      <if test="positionInUniqueConstraint != null">
+        POSITION_IN_UNIQUE_CONSTRAINT,
+      </if>
+      <if test="referencedTableSchema != null">
+        REFERENCED_TABLE_SCHEMA,
+      </if>
+      <if test="referencedTableName != null">
+        REFERENCED_TABLE_NAME,
+      </if>
+      <if test="referencedColumnName != null">
+        REFERENCED_COLUMN_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="constraintCatalog != null">
+        #{constraintCatalog,jdbcType=VARCHAR},
+      </if>
+      <if test="constraintSchema != null">
+        #{constraintSchema,jdbcType=VARCHAR},
+      </if>
+      <if test="constraintName != null">
+        #{constraintName,jdbcType=VARCHAR},
+      </if>
+      <if test="tableCatalog != null">
+        #{tableCatalog,jdbcType=VARCHAR},
+      </if>
+      <if test="tableSchema != null">
+        #{tableSchema,jdbcType=VARCHAR},
+      </if>
+      <if test="tableName != null">
+        #{tableName,jdbcType=VARCHAR},
+      </if>
+      <if test="columnName != null">
+        #{columnName,jdbcType=VARCHAR},
+      </if>
+      <if test="ordinalPosition != null">
+        #{ordinalPosition,jdbcType=BIGINT},
+      </if>
+      <if test="positionInUniqueConstraint != null">
+        #{positionInUniqueConstraint,jdbcType=BIGINT},
+      </if>
+      <if test="referencedTableSchema != null">
+        #{referencedTableSchema,jdbcType=VARCHAR},
+      </if>
+      <if test="referencedTableName != null">
+        #{referencedTableName,jdbcType=VARCHAR},
+      </if>
+      <if test="referencedColumnName != null">
+        #{referencedColumnName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.team.platform.pojo.KeyColumnUsageExample" resultType="java.lang.Long">
+    select count(*) from KEY_COLUMN_USAGE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update KEY_COLUMN_USAGE
+    <set>
+      <if test="record.constraintCatalog != null">
+        CONSTRAINT_CATALOG = #{record.constraintCatalog,jdbcType=VARCHAR},
+      </if>
+      <if test="record.constraintSchema != null">
+        CONSTRAINT_SCHEMA = #{record.constraintSchema,jdbcType=VARCHAR},
+      </if>
+      <if test="record.constraintName != null">
+        CONSTRAINT_NAME = #{record.constraintName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tableCatalog != null">
+        TABLE_CATALOG = #{record.tableCatalog,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tableSchema != null">
+        TABLE_SCHEMA = #{record.tableSchema,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tableName != null">
+        TABLE_NAME = #{record.tableName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.columnName != null">
+        COLUMN_NAME = #{record.columnName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ordinalPosition != null">
+        ORDINAL_POSITION = #{record.ordinalPosition,jdbcType=BIGINT},
+      </if>
+      <if test="record.positionInUniqueConstraint != null">
+        POSITION_IN_UNIQUE_CONSTRAINT = #{record.positionInUniqueConstraint,jdbcType=BIGINT},
+      </if>
+      <if test="record.referencedTableSchema != null">
+        REFERENCED_TABLE_SCHEMA = #{record.referencedTableSchema,jdbcType=VARCHAR},
+      </if>
+      <if test="record.referencedTableName != null">
+        REFERENCED_TABLE_NAME = #{record.referencedTableName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.referencedColumnName != null">
+        REFERENCED_COLUMN_NAME = #{record.referencedColumnName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update KEY_COLUMN_USAGE
+    set CONSTRAINT_CATALOG = #{record.constraintCatalog,jdbcType=VARCHAR},
+      CONSTRAINT_SCHEMA = #{record.constraintSchema,jdbcType=VARCHAR},
+      CONSTRAINT_NAME = #{record.constraintName,jdbcType=VARCHAR},
+      TABLE_CATALOG = #{record.tableCatalog,jdbcType=VARCHAR},
+      TABLE_SCHEMA = #{record.tableSchema,jdbcType=VARCHAR},
+      TABLE_NAME = #{record.tableName,jdbcType=VARCHAR},
+      COLUMN_NAME = #{record.columnName,jdbcType=VARCHAR},
+      ORDINAL_POSITION = #{record.ordinalPosition,jdbcType=BIGINT},
+      POSITION_IN_UNIQUE_CONSTRAINT = #{record.positionInUniqueConstraint,jdbcType=BIGINT},
+      REFERENCED_TABLE_SCHEMA = #{record.referencedTableSchema,jdbcType=VARCHAR},
+      REFERENCED_TABLE_NAME = #{record.referencedTableName,jdbcType=VARCHAR},
+      REFERENCED_COLUMN_NAME = #{record.referencedColumnName,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<context id="testTables" targetRuntime="MyBatis3">
+		<commentGenerator type="com.team.common.util.gencode.MybatisCommentGenerator">
+	        <!-- 生成文件的编码 (eclipse插件的时候这里并没有什么卵用，需要在eclipse根目录的eclipse.ini最后添加 -Dfile.encoding=UTF-8  )-->
+	        <property name="javaFileEncoding" value="UTF-8"/>
+	        <!-- 是否取消注释 -->
+	        <property name="suppressAllComments" value="false" />
+	        <property name="addRemarkComments" value="true"/>
+	        <!-- 是否生成注释代时间戳 -->
+	        <property name="suppressDate" value="true" />
+	        <!-- 当表名或者字段名为SQL关键字的时候，可以设置该属性为true，MBG会自动给表名或字段名添加**分隔符**  -->    
+	        <property name="autoDelimitKeywords" value="true"></property>
+	        <!-- 由于beginningDelimiter和endingDelimiter的默认值为双引号(")，在Mysql中不能这么写，所以还要将这两个默认值改为**反单引号(`)** -->
+	        <property name="beginningDelimiter" value="`"/>
+	        <property name="endingDelimiter" value="`"/>  
+	    </commentGenerator>
+		<!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
+		<jdbcConnection driverClass="com.ibm.db2.jcc.DB2Driver"
+			connectionURL="jdbc:db2://localhost:50000/PAEMS" userId="HDMS"
+			password="111111">
+		</jdbcConnection>
+		<!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL 和 
+			NUMERIC 类型解析为java.math.BigDecimal -->
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<!-- targetProject:生成PO类的位置 -->
+		<javaModelGenerator targetPackage="com.team.platform.pojo"
+			targetProject=".\src\main\java">
+			<!-- enableSubPackages:是否让schema作为包的后缀 -->
+			<property name="enableSubPackages" value="false" />
+			<!-- 从数据库返回的值被清理前后的空格 -->
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+        <!-- targetProject:mapper映射文件生成的位置 -->
+		<sqlMapGenerator targetPackage="com.team.platform.mapper" 
+			targetProject=".\src\main\java">
+			<!-- enableSubPackages:是否让schema作为包的后缀 -->
+			<property name="enableSubPackages" value="false" />
+		</sqlMapGenerator>
+		<!-- targetPackage：mapper接口生成的位置 -->
+		<javaClientGenerator type="XMLMAPPER"
+			targetPackage="com.team.platform.mapper" 
+			targetProject=".\src\main\java">
+			<!-- enableSubPackages:是否让schema作为包的后缀 -->
+			<property name="enableSubPackages" value="false" />
+		</javaClientGenerator>
+		<!-- 指定数据库表 -->
+		<table schema="HDMS" tableName="AUTH_ROLE" domainObjectName="AuthRole">
+		</table>
+	</context>
+</generatorConfiguration>

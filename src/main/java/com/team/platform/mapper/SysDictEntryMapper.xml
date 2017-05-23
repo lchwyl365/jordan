@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.platform.mapper.SysDictEntryMapper">
+  <resultMap id="BaseResultMap" type="com.team.platform.pojo.SysDictEntry">
+    <id column="DICTTYPEID" jdbcType="VARCHAR" property="dicttypeid" />
+    <id column="DICTID" jdbcType="VARCHAR" property="dictid" />
+    <result column="DICTNAME" jdbcType="VARCHAR" property="dictname" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    <result column="SORTNO" jdbcType="INTEGER" property="sortno" />
+    <result column="RANK" jdbcType="CHAR" property="rank" />
+    <result column="PARENTID" jdbcType="VARCHAR" property="parentid" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    DICTTYPEID, DICTID, DICTNAME, STATUS, SORTNO, RANK, PARENTID
+  </sql>
+  <select id="selectByExample" parameterType="com.team.platform.pojo.SysDictEntryExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HDMS.SYS_DICT_ENTRY
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.team.platform.pojo.SysDictEntryKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from HDMS.SYS_DICT_ENTRY
+    where DICTTYPEID = #{dicttypeid,jdbcType=VARCHAR}
+      and DICTID = #{dictid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.team.platform.pojo.SysDictEntryKey">
+    delete from HDMS.SYS_DICT_ENTRY
+    where DICTTYPEID = #{dicttypeid,jdbcType=VARCHAR}
+      and DICTID = #{dictid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.team.platform.pojo.SysDictEntryExample">
+    delete from HDMS.SYS_DICT_ENTRY
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.team.platform.pojo.SysDictEntry">
+    insert into HDMS.SYS_DICT_ENTRY (DICTTYPEID, DICTID, DICTNAME, 
+      STATUS, SORTNO, RANK, 
+      PARENTID)
+    values (#{dicttypeid,jdbcType=VARCHAR}, #{dictid,jdbcType=VARCHAR}, #{dictname,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{sortno,jdbcType=INTEGER}, #{rank,jdbcType=CHAR}, 
+      #{parentid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.team.platform.pojo.SysDictEntry">
+    insert into HDMS.SYS_DICT_ENTRY
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dicttypeid != null">
+        DICTTYPEID,
+      </if>
+      <if test="dictid != null">
+        DICTID,
+      </if>
+      <if test="dictname != null">
+        DICTNAME,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="sortno != null">
+        SORTNO,
+      </if>
+      <if test="rank != null">
+        RANK,
+      </if>
+      <if test="parentid != null">
+        PARENTID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dicttypeid != null">
+        #{dicttypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="dictid != null">
+        #{dictid,jdbcType=VARCHAR},
+      </if>
+      <if test="dictname != null">
+        #{dictname,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="sortno != null">
+        #{sortno,jdbcType=INTEGER},
+      </if>
+      <if test="rank != null">
+        #{rank,jdbcType=CHAR},
+      </if>
+      <if test="parentid != null">
+        #{parentid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.team.platform.pojo.SysDictEntryExample" resultType="java.lang.Long">
+    select count(*) from HDMS.SYS_DICT_ENTRY
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update HDMS.SYS_DICT_ENTRY
+    <set>
+      <if test="record.dicttypeid != null">
+        DICTTYPEID = #{record.dicttypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dictid != null">
+        DICTID = #{record.dictid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dictname != null">
+        DICTNAME = #{record.dictname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        STATUS = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sortno != null">
+        SORTNO = #{record.sortno,jdbcType=INTEGER},
+      </if>
+      <if test="record.rank != null">
+        RANK = #{record.rank,jdbcType=CHAR},
+      </if>
+      <if test="record.parentid != null">
+        PARENTID = #{record.parentid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update HDMS.SYS_DICT_ENTRY
+    set DICTTYPEID = #{record.dicttypeid,jdbcType=VARCHAR},
+      DICTID = #{record.dictid,jdbcType=VARCHAR},
+      DICTNAME = #{record.dictname,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=VARCHAR},
+      SORTNO = #{record.sortno,jdbcType=INTEGER},
+      RANK = #{record.rank,jdbcType=CHAR},
+      PARENTID = #{record.parentid,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.team.platform.pojo.SysDictEntry">
+    update HDMS.SYS_DICT_ENTRY
+    <set>
+      <if test="dictname != null">
+        DICTNAME = #{dictname,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="sortno != null">
+        SORTNO = #{sortno,jdbcType=INTEGER},
+      </if>
+      <if test="rank != null">
+        RANK = #{rank,jdbcType=CHAR},
+      </if>
+      <if test="parentid != null">
+        PARENTID = #{parentid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where DICTTYPEID = #{dicttypeid,jdbcType=VARCHAR}
+      and DICTID = #{dictid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.team.platform.pojo.SysDictEntry">
+    update HDMS.SYS_DICT_ENTRY
+    set DICTNAME = #{dictname,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      SORTNO = #{sortno,jdbcType=INTEGER},
+      RANK = #{rank,jdbcType=CHAR},
+      PARENTID = #{parentid,jdbcType=VARCHAR}
+    where DICTTYPEID = #{dicttypeid,jdbcType=VARCHAR}
+      and DICTID = #{dictid,jdbcType=VARCHAR}
+  </update>
+</mapper>

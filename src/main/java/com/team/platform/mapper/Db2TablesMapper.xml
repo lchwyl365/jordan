@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.platform.mapper.Db2TablesMapper">
+  <resultMap id="BaseResultMap" type="com.team.platform.pojo.Tables">
+    <result column="NAME" jdbcType="VARCHAR" property="tableName" />
+    <result column="CREATOR" jdbcType="VARCHAR" property="tableSchema" />
+    <result column="TYPE" jdbcType="CHAR" property="tableType" />
+    <result column="CTIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="REMARKS" jdbcType="VARCHAR" property="tableComment" />
+    <result column="FID" jdbcType="SMALLINT" property="fid" />
+    <result column="KEYCOLUMNS" jdbcType="SMALLINT" property="keycolumns" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    NAME, CREATOR, TYPE, CTIME, REMARKS, FID, KEYCOLUMNS
+  </sql>
+  <select id="selectByExample" parameterType="com.team.platform.pojo.Db2TablesExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from SYSIBM.SYSTABLES
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.team.platform.pojo.Db2TablesExample">
+    delete from SYSIBM.SYSTABLES
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.team.platform.pojo.Tables">
+    insert into SYSIBM.SYSTABLES (NAME, CREATOR, TYPE, 
+      CTIME, REMARKS, FID, 
+      KEYCOLUMNS)
+    values (#{tableName,jdbcType=VARCHAR}, #{tableSchema,jdbcType=VARCHAR}, #{tableType,jdbcType=CHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{tableComment,jdbcType=VARCHAR}, #{fid,jdbcType=SMALLINT}, 
+      #{keycolumns,jdbcType=SMALLINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.team.platform.pojo.Tables">
+    insert into SYSIBM.SYSTABLES
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tableName != null">
+        NAME,
+      </if>
+      <if test="tableSchema != null">
+        CREATOR,
+      </if>
+      <if test="tableType != null">
+        TYPE,
+      </if>
+      <if test="createTime != null">
+        CTIME,
+      </if>
+      <if test="tableComment != null">
+        REMARKS,
+      </if>
+      <if test="fid != null">
+        FID,
+      </if>
+      <if test="keycolumns != null">
+        KEYCOLUMNS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tableName != null">
+        #{tableName,jdbcType=VARCHAR},
+      </if>
+      <if test="tableSchema != null">
+        #{tableSchema,jdbcType=VARCHAR},
+      </if>
+      <if test="tableType != null">
+        #{tableType,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tableComment != null">
+        #{tableComment,jdbcType=VARCHAR},
+      </if>
+      <if test="fid != null">
+        #{fid,jdbcType=SMALLINT},
+      </if>
+      <if test="keycolumns != null">
+        #{keycolumns,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.team.platform.pojo.Db2TablesExample" resultType="java.lang.Long">
+    select count(*) from SYSIBM.SYSTABLES
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update SYSIBM.SYSTABLES
+    <set>
+      <if test="record.tableName != null">
+        NAME = #{record.tableName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tableSchema != null">
+        CREATOR = #{record.tableSchema,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tableType != null">
+        TYPE = #{record.tableType,jdbcType=CHAR},
+      </if>
+      <if test="record.createTime != null">
+        CTIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.tableComment != null">
+        REMARKS = #{record.tableComment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fid != null">
+        FID = #{record.fid,jdbcType=SMALLINT},
+      </if>
+      <if test="record.keycolumns != null">
+        KEYCOLUMNS = #{record.keycolumns,jdbcType=SMALLINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update SYSIBM.SYSTABLES
+    set NAME = #{record.tableName,jdbcType=VARCHAR},
+      CREATOR = #{record.tableSchema,jdbcType=VARCHAR},
+      TYPE = #{record.tableType,jdbcType=CHAR},
+      CTIME = #{record.createTime,jdbcType=TIMESTAMP},
+      REMARKS = #{record.tableComment,jdbcType=VARCHAR},
+      FID = #{record.fid,jdbcType=SMALLINT},
+      KEYCOLUMNS = #{record.keycolumns,jdbcType=SMALLINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

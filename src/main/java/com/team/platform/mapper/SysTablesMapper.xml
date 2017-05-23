@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.platform.mapper.SysTablesMapper">
+  <resultMap id="BaseResultMap" type="com.team.platform.pojo.SysTables">
+    <id column="TABLE_NAME" jdbcType="VARCHAR" property="tableName" />
+    <id column="SCHEMA_NAME" jdbcType="VARCHAR" property="schemaName" />
+    <id column="TYPE" jdbcType="CHAR" property="type" />
+    <result column="FID" jdbcType="SMALLINT" property="fid" />
+    <result column="KEYCOLUMNS" jdbcType="SMALLINT" property="keycolumns" />
+    <result column="CTIME" jdbcType="TIMESTAMP" property="ctime" />
+    <result column="REMARKS" jdbcType="VARCHAR" property="remarks" />
+    <result column="GENERATE" jdbcType="CHAR" property="generate" />
+    <result column="GENTYPE" jdbcType="VARCHAR" property="gentype" />
+    <result column="GTIME" jdbcType="TIMESTAMP" property="gtime" />
+    <result column="PATH" jdbcType="VARCHAR" property="path" />
+    <result column="MENU_NAME" jdbcType="VARCHAR" property="menuName" />
+    <result column="BUSINESS_NAME" jdbcType="VARCHAR" property="businessName" />
+    <result column="DOMAIN_OBJECT_NAME" jdbcType="VARCHAR" property="domainObjectName" />
+    <result column="VARIABLE_NAME" jdbcType="VARCHAR" property="variableName" />
+    <result column="POJO_TARGET_PACKAGE" jdbcType="VARCHAR" property="pojoTargetPackage" />
+    <result column="MAPPER_TARGET_PACKAGE" jdbcType="VARCHAR" property="mapperTargetPackage" />
+    <result column="SERVICE_TARGET_PACKAGE" jdbcType="VARCHAR" property="serviceTargetPackage" />
+    <result column="CONTROLLER_TARGET_PACKAGE" jdbcType="VARCHAR" property="controllerTargetPackage" />
+    <result column="ISADD" jdbcType="CHAR" property="isadd" />
+    <result column="ISUPDATE" jdbcType="CHAR" property="isupdate" />
+    <result column="ISDELETE" jdbcType="CHAR" property="isdelete" />
+    <result column="ID_FIELD" jdbcType="VARCHAR" property="idField" />
+    <result column="PARENT_FIELD" jdbcType="VARCHAR" property="parentField" />
+    <result column="TREE_FIELD" jdbcType="VARCHAR" property="treeField" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TABLE_NAME, SCHEMA_NAME, TYPE, FID, KEYCOLUMNS, CTIME, REMARKS, GENERATE, GENTYPE, 
+    GTIME, PATH, MENU_NAME, BUSINESS_NAME, DOMAIN_OBJECT_NAME, VARIABLE_NAME, POJO_TARGET_PACKAGE, 
+    MAPPER_TARGET_PACKAGE, SERVICE_TARGET_PACKAGE, CONTROLLER_TARGET_PACKAGE, ISADD, 
+    ISUPDATE, ISDELETE, ID_FIELD, PARENT_FIELD, TREE_FIELD
+  </sql>
+  <select id="selectByExample" parameterType="com.team.platform.pojo.SysTablesExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from HDMS.SYS_TABLES
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.team.platform.pojo.SysTablesKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from HDMS.SYS_TABLES
+    where TABLE_NAME = #{tableName,jdbcType=VARCHAR}
+      and SCHEMA_NAME = #{schemaName,jdbcType=VARCHAR}
+      and TYPE = #{type,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.team.platform.pojo.SysTablesKey">
+    delete from HDMS.SYS_TABLES
+    where TABLE_NAME = #{tableName,jdbcType=VARCHAR}
+      and SCHEMA_NAME = #{schemaName,jdbcType=VARCHAR}
+      and TYPE = #{type,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.team.platform.pojo.SysTablesExample">
+    delete from HDMS.SYS_TABLES
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.team.platform.pojo.SysTables">
+    insert into HDMS.SYS_TABLES (TABLE_NAME, SCHEMA_NAME, TYPE, 
+      FID, KEYCOLUMNS, CTIME, 
+      REMARKS, GENERATE, GENTYPE, 
+      GTIME, PATH, MENU_NAME, 
+      BUSINESS_NAME, DOMAIN_OBJECT_NAME, VARIABLE_NAME, 
+      POJO_TARGET_PACKAGE, MAPPER_TARGET_PACKAGE, 
+      SERVICE_TARGET_PACKAGE, CONTROLLER_TARGET_PACKAGE, 
+      ISADD, ISUPDATE, ISDELETE, ID_FIELD, 
+      PARENT_FIELD, TREE_FIELD)
+    values (#{tableName,jdbcType=VARCHAR}, #{schemaName,jdbcType=VARCHAR}, #{type,jdbcType=CHAR}, 
+      #{fid,jdbcType=SMALLINT}, #{keycolumns,jdbcType=SMALLINT}, #{ctime,jdbcType=TIMESTAMP}, 
+      #{remarks,jdbcType=VARCHAR}, #{generate,jdbcType=CHAR}, #{gentype,jdbcType=VARCHAR}, 
+      #{gtime,jdbcType=TIMESTAMP}, #{path,jdbcType=VARCHAR}, #{menuName,jdbcType=VARCHAR}, 
+      #{businessName,jdbcType=VARCHAR}, #{domainObjectName,jdbcType=VARCHAR}, #{variableName,jdbcType=VARCHAR}, 
+      #{pojoTargetPackage,jdbcType=VARCHAR}, #{mapperTargetPackage,jdbcType=VARCHAR}, 
+      #{serviceTargetPackage,jdbcType=VARCHAR}, #{controllerTargetPackage,jdbcType=VARCHAR}, 
+      #{isadd,jdbcType=CHAR}, #{isupdate,jdbcType=CHAR}, #{isdelete,jdbcType=CHAR}, #{idField,jdbcType=VARCHAR}, 
+      #{parentField,jdbcType=VARCHAR}, #{treeField,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.team.platform.pojo.SysTables">
+    insert into HDMS.SYS_TABLES
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tableName != null">
+        TABLE_NAME,
+      </if>
+      <if test="schemaName != null">
+        SCHEMA_NAME,
+      </if>
+      <if test="type != null">
+        TYPE,
+      </if>
+      <if test="fid != null">
+        FID,
+      </if>
+      <if test="keycolumns != null">
+        KEYCOLUMNS,
+      </if>
+      <if test="ctime != null">
+        CTIME,
+      </if>
+      <if test="remarks != null">
+        REMARKS,
+      </if>
+      <if test="generate != null">
+        GENERATE,
+      </if>
+      <if test="gentype != null">
+        GENTYPE,
+      </if>
+      <if test="gtime != null">
+        GTIME,
+      </if>
+      <if test="path != null">
+        PATH,
+      </if>
+      <if test="menuName != null">
+        MENU_NAME,
+      </if>
+      <if test="businessName != null">
+        BUSINESS_NAME,
+      </if>
+      <if test="domainObjectName != null">
+        DOMAIN_OBJECT_NAME,
+      </if>
+      <if test="variableName != null">
+        VARIABLE_NAME,
+      </if>
+      <if test="pojoTargetPackage != null">
+        POJO_TARGET_PACKAGE,
+      </if>
+      <if test="mapperTargetPackage != null">
+        MAPPER_TARGET_PACKAGE,
+      </if>
+      <if test="serviceTargetPackage != null">
+        SERVICE_TARGET_PACKAGE,
+      </if>
+      <if test="controllerTargetPackage != null">
+        CONTROLLER_TARGET_PACKAGE,
+      </if>
+      <if test="isadd != null">
+        ISADD,
+      </if>
+      <if test="isupdate != null">
+        ISUPDATE,
+      </if>
+      <if test="isdelete != null">
+        ISDELETE,
+      </if>
+      <if test="idField != null">
+        ID_FIELD,
+      </if>
+      <if test="parentField != null">
+        PARENT_FIELD,
+      </if>
+      <if test="treeField != null">
+        TREE_FIELD,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tableName != null">
+        #{tableName,jdbcType=VARCHAR},
+      </if>
+      <if test="schemaName != null">
+        #{schemaName,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="fid != null">
+        #{fid,jdbcType=SMALLINT},
+      </if>
+      <if test="keycolumns != null">
+        #{keycolumns,jdbcType=SMALLINT},
+      </if>
+      <if test="ctime != null">
+        #{ctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="generate != null">
+        #{generate,jdbcType=CHAR},
+      </if>
+      <if test="gentype != null">
+        #{gentype,jdbcType=VARCHAR},
+      </if>
+      <if test="gtime != null">
+        #{gtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="path != null">
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="menuName != null">
+        #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="businessName != null">
+        #{businessName,jdbcType=VARCHAR},
+      </if>
+      <if test="domainObjectName != null">
+        #{domainObjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="variableName != null">
+        #{variableName,jdbcType=VARCHAR},
+      </if>
+      <if test="pojoTargetPackage != null">
+        #{pojoTargetPackage,jdbcType=VARCHAR},
+      </if>
+      <if test="mapperTargetPackage != null">
+        #{mapperTargetPackage,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceTargetPackage != null">
+        #{serviceTargetPackage,jdbcType=VARCHAR},
+      </if>
+      <if test="controllerTargetPackage != null">
+        #{controllerTargetPackage,jdbcType=VARCHAR},
+      </if>
+      <if test="isadd != null">
+        #{isadd,jdbcType=CHAR},
+      </if>
+      <if test="isupdate != null">
+        #{isupdate,jdbcType=CHAR},
+      </if>
+      <if test="isdelete != null">
+        #{isdelete,jdbcType=CHAR},
+      </if>
+      <if test="idField != null">
+        #{idField,jdbcType=VARCHAR},
+      </if>
+      <if test="parentField != null">
+        #{parentField,jdbcType=VARCHAR},
+      </if>
+      <if test="treeField != null">
+        #{treeField,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.team.platform.pojo.SysTablesExample" resultType="java.lang.Long">
+    select count(*) from HDMS.SYS_TABLES
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update HDMS.SYS_TABLES
+    <set>
+      <if test="record.tableName != null">
+        TABLE_NAME = #{record.tableName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.schemaName != null">
+        SCHEMA_NAME = #{record.schemaName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        TYPE = #{record.type,jdbcType=CHAR},
+      </if>
+      <if test="record.fid != null">
+        FID = #{record.fid,jdbcType=SMALLINT},
+      </if>
+      <if test="record.keycolumns != null">
+        KEYCOLUMNS = #{record.keycolumns,jdbcType=SMALLINT},
+      </if>
+      <if test="record.ctime != null">
+        CTIME = #{record.ctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remarks != null">
+        REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.generate != null">
+        GENERATE = #{record.generate,jdbcType=CHAR},
+      </if>
+      <if test="record.gentype != null">
+        GENTYPE = #{record.gentype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gtime != null">
+        GTIME = #{record.gtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.path != null">
+        PATH = #{record.path,jdbcType=VARCHAR},
+      </if>
+      <if test="record.menuName != null">
+        MENU_NAME = #{record.menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.businessName != null">
+        BUSINESS_NAME = #{record.businessName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.domainObjectName != null">
+        DOMAIN_OBJECT_NAME = #{record.domainObjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.variableName != null">
+        VARIABLE_NAME = #{record.variableName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pojoTargetPackage != null">
+        POJO_TARGET_PACKAGE = #{record.pojoTargetPackage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mapperTargetPackage != null">
+        MAPPER_TARGET_PACKAGE = #{record.mapperTargetPackage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceTargetPackage != null">
+        SERVICE_TARGET_PACKAGE = #{record.serviceTargetPackage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.controllerTargetPackage != null">
+        CONTROLLER_TARGET_PACKAGE = #{record.controllerTargetPackage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isadd != null">
+        ISADD = #{record.isadd,jdbcType=CHAR},
+      </if>
+      <if test="record.isupdate != null">
+        ISUPDATE = #{record.isupdate,jdbcType=CHAR},
+      </if>
+      <if test="record.isdelete != null">
+        ISDELETE = #{record.isdelete,jdbcType=CHAR},
+      </if>
+      <if test="record.idField != null">
+        ID_FIELD = #{record.idField,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentField != null">
+        PARENT_FIELD = #{record.parentField,jdbcType=VARCHAR},
+      </if>
+      <if test="record.treeField != null">
+        TREE_FIELD = #{record.treeField,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update HDMS.SYS_TABLES
+    set TABLE_NAME = #{record.tableName,jdbcType=VARCHAR},
+      SCHEMA_NAME = #{record.schemaName,jdbcType=VARCHAR},
+      TYPE = #{record.type,jdbcType=CHAR},
+      FID = #{record.fid,jdbcType=SMALLINT},
+      KEYCOLUMNS = #{record.keycolumns,jdbcType=SMALLINT},
+      CTIME = #{record.ctime,jdbcType=TIMESTAMP},
+      REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      GENERATE = #{record.generate,jdbcType=CHAR},
+      GENTYPE = #{record.gentype,jdbcType=VARCHAR},
+      GTIME = #{record.gtime,jdbcType=TIMESTAMP},
+      PATH = #{record.path,jdbcType=VARCHAR},
+      MENU_NAME = #{record.menuName,jdbcType=VARCHAR},
+      BUSINESS_NAME = #{record.businessName,jdbcType=VARCHAR},
+      DOMAIN_OBJECT_NAME = #{record.domainObjectName,jdbcType=VARCHAR},
+      VARIABLE_NAME = #{record.variableName,jdbcType=VARCHAR},
+      POJO_TARGET_PACKAGE = #{record.pojoTargetPackage,jdbcType=VARCHAR},
+      MAPPER_TARGET_PACKAGE = #{record.mapperTargetPackage,jdbcType=VARCHAR},
+      SERVICE_TARGET_PACKAGE = #{record.serviceTargetPackage,jdbcType=VARCHAR},
+      CONTROLLER_TARGET_PACKAGE = #{record.controllerTargetPackage,jdbcType=VARCHAR},
+      ISADD = #{record.isadd,jdbcType=CHAR},
+      ISUPDATE = #{record.isupdate,jdbcType=CHAR},
+      ISDELETE = #{record.isdelete,jdbcType=CHAR},
+      ID_FIELD = #{record.idField,jdbcType=VARCHAR},
+      PARENT_FIELD = #{record.parentField,jdbcType=VARCHAR},
+      TREE_FIELD = #{record.treeField,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.team.platform.pojo.SysTables">
+    update HDMS.SYS_TABLES
+    <set>
+      <if test="fid != null">
+        FID = #{fid,jdbcType=SMALLINT},
+      </if>
+      <if test="keycolumns != null">
+        KEYCOLUMNS = #{keycolumns,jdbcType=SMALLINT},
+      </if>
+      <if test="ctime != null">
+        CTIME = #{ctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        REMARKS = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="generate != null">
+        GENERATE = #{generate,jdbcType=CHAR},
+      </if>
+      <if test="gentype != null">
+        GENTYPE = #{gentype,jdbcType=VARCHAR},
+      </if>
+      <if test="gtime != null">
+        GTIME = #{gtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="path != null">
+        PATH = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="menuName != null">
+        MENU_NAME = #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="businessName != null">
+        BUSINESS_NAME = #{businessName,jdbcType=VARCHAR},
+      </if>
+      <if test="domainObjectName != null">
+        DOMAIN_OBJECT_NAME = #{domainObjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="variableName != null">
+        VARIABLE_NAME = #{variableName,jdbcType=VARCHAR},
+      </if>
+      <if test="pojoTargetPackage != null">
+        POJO_TARGET_PACKAGE = #{pojoTargetPackage,jdbcType=VARCHAR},
+      </if>
+      <if test="mapperTargetPackage != null">
+        MAPPER_TARGET_PACKAGE = #{mapperTargetPackage,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceTargetPackage != null">
+        SERVICE_TARGET_PACKAGE = #{serviceTargetPackage,jdbcType=VARCHAR},
+      </if>
+      <if test="controllerTargetPackage != null">
+        CONTROLLER_TARGET_PACKAGE = #{controllerTargetPackage,jdbcType=VARCHAR},
+      </if>
+      <if test="isadd != null">
+        ISADD = #{isadd,jdbcType=CHAR},
+      </if>
+      <if test="isupdate != null">
+        ISUPDATE = #{isupdate,jdbcType=CHAR},
+      </if>
+      <if test="isdelete != null">
+        ISDELETE = #{isdelete,jdbcType=CHAR},
+      </if>
+      <if test="idField != null">
+        ID_FIELD = #{idField,jdbcType=VARCHAR},
+      </if>
+      <if test="parentField != null">
+        PARENT_FIELD = #{parentField,jdbcType=VARCHAR},
+      </if>
+      <if test="treeField != null">
+        TREE_FIELD = #{treeField,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TABLE_NAME = #{tableName,jdbcType=VARCHAR}
+      and SCHEMA_NAME = #{schemaName,jdbcType=VARCHAR}
+      and TYPE = #{type,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.team.platform.pojo.SysTables">
+    update HDMS.SYS_TABLES
+    set FID = #{fid,jdbcType=SMALLINT},
+      KEYCOLUMNS = #{keycolumns,jdbcType=SMALLINT},
+      CTIME = #{ctime,jdbcType=TIMESTAMP},
+      REMARKS = #{remarks,jdbcType=VARCHAR},
+      GENERATE = #{generate,jdbcType=CHAR},
+      GENTYPE = #{gentype,jdbcType=VARCHAR},
+      GTIME = #{gtime,jdbcType=TIMESTAMP},
+      PATH = #{path,jdbcType=VARCHAR},
+      MENU_NAME = #{menuName,jdbcType=VARCHAR},
+      BUSINESS_NAME = #{businessName,jdbcType=VARCHAR},
+      DOMAIN_OBJECT_NAME = #{domainObjectName,jdbcType=VARCHAR},
+      VARIABLE_NAME = #{variableName,jdbcType=VARCHAR},
+      POJO_TARGET_PACKAGE = #{pojoTargetPackage,jdbcType=VARCHAR},
+      MAPPER_TARGET_PACKAGE = #{mapperTargetPackage,jdbcType=VARCHAR},
+      SERVICE_TARGET_PACKAGE = #{serviceTargetPackage,jdbcType=VARCHAR},
+      CONTROLLER_TARGET_PACKAGE = #{controllerTargetPackage,jdbcType=VARCHAR},
+      ISADD = #{isadd,jdbcType=CHAR},
+      ISUPDATE = #{isupdate,jdbcType=CHAR},
+      ISDELETE = #{isdelete,jdbcType=CHAR},
+      ID_FIELD = #{idField,jdbcType=VARCHAR},
+      PARENT_FIELD = #{parentField,jdbcType=VARCHAR},
+      TREE_FIELD = #{treeField,jdbcType=VARCHAR}
+    where TABLE_NAME = #{tableName,jdbcType=VARCHAR}
+      and SCHEMA_NAME = #{schemaName,jdbcType=VARCHAR}
+      and TYPE = #{type,jdbcType=CHAR}
+  </update>
+</mapper>
